@@ -1,9 +1,5 @@
 LOCAL_PATH := device/motorola/coful
 
-# Recovery UI
-TARGET_SCREEN_WIDTH := 1080
-TARGET_SCREEN_HEIGHT := 2400
-
 # A/B
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
@@ -37,7 +33,7 @@ PRODUCT_PACKAGES += \
     update_engine_sideload
 
 # VNDK
-PRODUCT_TARGET_VNDK_VERSION := 31
+#PRODUCT_TARGET_VNDK_VERSION := 31
 
 # API
 PRODUCT_SHIPPING_API_LEVEL := 31
@@ -56,19 +52,15 @@ PRODUCT_PACKAGES += \
 
 TARGET_RECOVERY_DEVICE_MODULES += \
     libion \
-    libxml2 \
-    vendor.display.config@1.0 \
+    libxml2
+ #   vendor.display.config@1.0 \
     vendor.display.config@2.0
 
 RECOVERY_LIBRARY_SOURCE_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so \
-    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@1.0.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libxml2.so
+#    $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@1.0.so \
     $(TARGET_OUT_SYSTEM_EXT_SHARED_LIBRARIES)/vendor.display.config@2.0.so
-
-# MTK PlPath Utils
-PRODUCT_PACKAGES += \
-    mtk_plpath_utils.recovery
 
 # Health HAL
 PRODUCT_PACKAGES += \
