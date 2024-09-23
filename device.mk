@@ -76,4 +76,3 @@ PRODUCT_PACKAGES += \
     android.hardware.health@2.1-service \
     libhealthd.$(PRODUCT_PLATFORM)
 
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 32768  # 32MB
