@@ -1,4 +1,4 @@
-# Android device tree for Motorola Motorola G31 (coful)
+# Twrp device tree for Motorola Motorola G31 (coful)
 
 ```
 #
