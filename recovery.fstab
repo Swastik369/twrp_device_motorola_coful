@@ -1,9 +1,30 @@
+#if 0
 /system         ext4     system                                              flags=display=system;logical;slotselect
 /vendor         ext4     vendor                                              flags=display=vendor;logical;slotselect
 /system_ext     ext4     system_ext                                          flags=display=system_ext;logical;slotselect
 /product        ext4     product                                             flags=display=product;logical;slotselect
 /metadata       ext4     /dev/block/platform/bootdevice/by-name/md_udc       flags=display=metadata
-/data           f2fs     /dev/block/platform/bootdevice/by-name/userdata     flags=display=data
+/data           f2fs    /dev/block/platform/bootdevice/by-name/userdata        flags=fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized
 /misc           emmc     /dev/block/platform/bootdevice/by-name/misc         flags=display=misc
 /para           emmc     /dev/block/platform/bootdevice/by-name/para         flags=display=para
 /boot           emmc     /dev/block/platform/bootdevice/by-name/boot         flags=display=boot;slotselect
+#endif
+
+# Logical Volumes (Dynamic Partitions)
+system        /system        auto    ro    logical
+system_ext    /system_ext    auto    ro    logical
+vendor        /vendor        auto    ro    logical
+product       /product       auto    ro    logical
+
+# Core Storage Blocks
+/dev/block/by-name/metadata    /metadata    ext4    noatime,nosuid,nodev,discard    wait,check,formattable
+/dev/block/by-name/userdata    /data        f2fs    noatime,nosuid,nodev,discard    wait,check,formattable,fileencryption=aes-256-xts:aes-256-cts:v2
+
+# Core Flash Targets
+/dev/block/by-name/boot        /boot        emmc    defaults    nofail,slotselect
+/dev/block/by-name/misc        /misc        emmc    defaults    defaults
+/dev/block/by-name/para        /para        emmc    defaults    defaults
+
+# Removable Storage
+/devices/platform/11240000.mmc* auto auto defaults voldmanaged=sdcard1:auto
+/devices/platform/mt_usb* auto vfat defaults voldmanaged=usbotg:auto

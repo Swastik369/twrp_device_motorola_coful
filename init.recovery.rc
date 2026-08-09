@@ -1,0 +1,9 @@
+on boot
+    # Manually insert touch modules back-to-back
+    insmod /vendor/lib/modules/focaltech_mtk_v2_mmi.ko
+    insmod /vendor/lib/modules/goodix_mtk_gtx8_mmi.ko
+    insmod /vendor/lib/modules/goodix_mtk_gtx8_ts_tools_mmi.ko
+    
+    # Open up device node permissions for touch events
+    chmod 0660 /dev/input/event*
+    chown system input /dev/input/event*

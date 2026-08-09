@@ -67,6 +67,7 @@ TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
 BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
 BOARD_INCLUDE_DTB_IN_BOOTIMG := 
+BOARD_RECOVERY_KERNEL_MODULES := $(wildcard $(DEVICE_PATH)/prebuilt/*.ko)
 endif
 
 # Partitions
@@ -105,8 +106,26 @@ PLATFORM_VERSION := 16.1.0
 
 # TWRP Configuration
 TW_THEME := portrait_hdpi
-TW_EXTRA_LANGUAGES := true
 TW_SCREEN_BLANK_ON_BOOT := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_USE_TOOLBOX := true
-TW_INCLUDE_REPACKTOOLS := true
+TW_EXCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO := false
+TW_EXCLUDE_MTP := false
+
+# SPACE SAVING PURGES:
+TW_EXTRA_LANGUAGES := false
+TW_EXCLUDE_APPHAL := true
+TW_INCLUDE_REPACKTOOLS := false
+TW_EXCLUDE_DEFAULT_USB_INIT := true
+#TW_EXCLUDE_ENCRYPTED_BACKUPS := true
+
+# KEEP LZMA ACTIVE
+BOARD_RAMDISK_COMPRESSION := gzip
+#TW_LOAD_VENDOR_MODULES := "focaltech_mtk_v2_mmi.ko goodix_mtk_gtx8_mmi.ko goodix_mtk_gtx8_ts_tools_mmi.ko"
+
+# Include your friend's working MediaTek structural mappings
+BOARD_ROOT_EXTRA_FILES += \
+    $(DEVICE_PATH)/ueventd.mt6768.rc:ueventd.rc \
+    $(DEVICE_PATH)/init.recovery.mt6768.rc:init.recovery.mt6768.rc \
+    $(DEVICE_PATH)/mtk-plpath-utils.rc:mtk-plpath-utils.rc
